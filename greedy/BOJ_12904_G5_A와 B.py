@@ -13,7 +13,6 @@ while T:
     
     if S == T:
         flag = True
-        break
 
 if flag:
     print(1)
