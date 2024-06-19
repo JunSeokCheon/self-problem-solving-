@@ -28,8 +28,7 @@ import sys
 
 n = int(sys.stdin.readline())
 n_list = list(map(int, sys.stdin.readline().split()))
-init_range = [0, 0]
-flag = True
+init_range = [0,0]
 result = 0
 
 n_list.sort()
@@ -41,7 +40,6 @@ for num in n_list:
         result = init_range[1] + 1
     else:
         result = init_range[1] + 1
-        flag = False
         break
 
 print(result)
