@@ -42,41 +42,29 @@
     
 import sys
 
-#북쪽 왼쪽 모서리를 0으로 잡고 펼쳤을 때 0으로부터 얼마나 떨어졌는 지 위치를 계산해주는 함수
-def cal_dist(loc, distance) :
-    if loc==1 : #북쪽
-        return distance
-    elif loc==4 : #동쪽
-        return w+distance
-    elif loc==2 : #남쪽
-        return w+h+w-distance
-    elif loc==3 : #서쪽
-        return w+h+w+h-distance
+def relative_distance(direction, dist):
+    if direction == 1:
+        return dist
+    elif direction == 4:
+        return width + dist
+    elif direction == 2:
+        return width + height + width - dist
+    elif direction == 3:
+        return width + height + width + height - dist
 
-#블록의 가로길이 세로길이 입력받기
-w, h = map(int,input().split())
+width, height = map(int, sys.stdin.readline().split())
+store_num = int(sys.stdin.readline())
+dist_list = []
+result = 0
 
-#상점의 개수 입력받기
-num=int(sys.stdin.readline())
+for _ in range(store_num+1):
+    direction, dist = map(int, sys.stdin.readline().split())
+    dist_list.append(relative_distance(direction, dist))
 
-dist=[]
-#각 상점의 위치와 동근이의 위치 입력받기
-for _ in range(num+1) :
-    loc, distance=map(int, sys.stdin.readline().split())
-    dist.append(cal_dist(loc, distance))
+donggune = dist_list[-1]
 
-#동근이 거리
-dong_dist=dist[-1]
-
-answer=0
-for i in range(num):
-    #0에서 떨어진 각 가게의 거리와, 0에서 떨어진 동근의 위치 차이의 절댓값을 구해준다.
-    cal_distance=abs(dist[i]-dong_dist)
-
-    #전체 길이를 구해준다.
-    total=2*(w+h)
-
-    #더 작은 값을 answer에 누적시킨다.
-    answer+=min(cal_distance,total-cal_distance)
-
-print(answer)
+for i in range(store_num):
+    distance = abs(donggune-dist_list[i])
+    total = 2*(width+height)
+    result += min(distance, total - distance)
+print(result)
