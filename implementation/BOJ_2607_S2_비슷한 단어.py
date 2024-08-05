@@ -1,21 +1,22 @@
-import sys
+import sys, copy
 
 n = int(sys.stdin.readline())
 word_list = [sys.stdin.readline().strip() for _ in range(n)]
 result = 0
-target_word = list(word_list[0])
-word_list = word_list[1:]
+target_word = word_list[0]
+words = word_list[1:]
 
-for word in word_list:
-    temp_target_word = target_word[:]
-    opt_cnt = 0
+for word in words:
+    temp_target_word = copy.deepcopy(target_word)
+    change_cnt = 0
     
-    for mini_word in word:
-        if mini_word in ''.join(temp_target_word):
-            temp_target_word.remove(mini_word)
+    for mini_w in word:
+        if mini_w in temp_target_word:
+            temp_target_word = temp_target_word.replace(mini_w, '', 1)
         else:
-            opt_cnt += 1
-    
-    if opt_cnt < 2 and len(temp_target_word) < 2:
+            change_cnt += 1
+            
+    if change_cnt < 2 and len(temp_target_word) < 2:
         result += 1
+
 print(result)
