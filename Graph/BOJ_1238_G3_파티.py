@@ -21,29 +21,22 @@ INF = 1e9
 graph = [[]*(n+1) for _ in range(n+1)]
 go_goal = [INF] * (n+1)
 return_goal = [INF] * (n+1)
-result = []
-max_time = 0
+go_goal[x] = 0
+result = 0
 
 for _ in range(m):
     start, end, cost = map(int, sys.stdin.readline().split())
     graph[start].append((end, cost))
 
 for start in range(1, n+1):
-    distance = [INF] * (n+1)
+    distance = [INF]* (n+1)
     dijkstra(start)
     if start == x:
         return_goal = distance
     else:
         go_goal[start] = distance[x]
 
-for go, turn in zip(go_goal, return_goal):
-    result.append(go+turn)
+for go, turn in zip(go_goal[1:], return_goal[1:]):
+    result = max(result, go+turn)
 
-for max_result in result[1:]:
-    if max_result == INF:
-        continue
-    
-    if max_time < max_result:
-        max_time = max_result
-
-print(max_time)
+print(result)
