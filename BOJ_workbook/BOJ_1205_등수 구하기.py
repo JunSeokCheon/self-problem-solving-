@@ -1,7 +1,6 @@
 import sys, heapq
 
 N, score, P = map(int, sys.stdin.readline().split())
-result = 1
 
 if N == 0:
     print(1)
@@ -16,17 +15,11 @@ else:
         heapq.heappush(heap, -score)
         
         temp_value = 0
-        mini_rank = 0
+        rank = 0
         for _ in range(len(heap)):
             num = -heapq.heappop(heap)
             if num == score:
-                print(mini_rank+ result)
+                print(rank+1)
                 break
             else:
-                if temp_value == num:
-                    mini_rank += 1
-                else:
-                    temp_value = num
-                    mini_rank += 1
-                
-                
+                rank += 1
