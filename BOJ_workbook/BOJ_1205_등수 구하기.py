@@ -15,11 +15,11 @@ else:
         heapq.heappush(heap, -score)
         
         temp_value = 0
-        rank = 0
+        rank = 1
         for _ in range(len(heap)):
             num = -heapq.heappop(heap)
             if num == score:
-                print(rank+1)
+                print(rank)
                 break
             else:
                 rank += 1
